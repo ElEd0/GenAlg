@@ -29,7 +29,7 @@ public class Renderer {
 	
 	public void render(){
 		canvas.setBackground(Color.GRAY);
-		g.setColor(Color.CYAN);
+		g.setColor(Color.RED);
 		g.fillOval(100, 100, 100, 100);
 		
 	}
