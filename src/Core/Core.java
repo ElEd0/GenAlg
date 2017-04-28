@@ -11,16 +11,21 @@ public class Core {
 	private int generations = 1;
 	
 	private long timer = System.currentTimeMillis();
+	private long renderTimer = System.currentTimeMillis();
 	
 
 	public Core(){
 		
 		currentGeneration = new Generation();
 		renderer = new Renderer(currentGeneration);
+		System.out.println("dir0: "+Ball.c0);
+		System.out.println("dir1: "+Ball.c1);
+		System.out.println("dir2: "+Ball.c2);
+		System.out.println("dir3: "+Ball.c3);
 		
 		
 		while(true){
-			if(System.currentTimeMillis()-timer>5){
+			if(System.currentTimeMillis()-timer>20){
 				update();
 				timer=System.currentTimeMillis();
 			}
@@ -29,10 +34,13 @@ public class Core {
 	}
 	
 	public void update(){
-		renderer.render();
 		currentGeneration.update();
-		if(currentGeneration.getCycles()==99){
+		if(currentGeneration.getCycles()==999){
 			changeGen();
+		}
+		if(System.currentTimeMillis()-renderTimer>1000){
+			renderer.render();
+			renderTimer=System.currentTimeMillis();
 		}
 		
 	}
@@ -46,11 +54,12 @@ public class Core {
 			int[] parentsIndex = urn.getRandomParents();
 			newGen.add(new Ball(lastGeneration.getSortedUnits().get(parentsIndex[0]).getDna(),
 					lastGeneration.getSortedUnits().get(parentsIndex[1]).getDna()));
-			newGen.add(lastGeneration.getSortedUnits().get(i));
+			newGen.add(new Ball(lastGeneration.getSortedUnits().get(i).getDna()));
 		}
 		currentGeneration = new Generation(newGen);
 		generations++;
 		System.out.println("New Generation: "+generations);
+		renderer.updateGen(currentGeneration);
 	}
 
 }

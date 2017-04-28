@@ -8,6 +8,8 @@ public class Generation {
 	private ArrayList<Ball> units = new ArrayList<Ball>();
 	private int updateCycle = 0;
 	
+	private int meanX=0;
+	
 	
 	public Generation(){
 		for(int i=0; i<100; i++){
@@ -26,7 +28,7 @@ public class Generation {
 			b.update(updateCycle);
 			sumX+=b.getX();
 		}
-		System.out.println(sumX/100);
+		meanX=sumX/units.size();
 		updateCycle++;
 	}
 	
@@ -45,6 +47,10 @@ public class Generation {
 		for(Ball u : units){
 			u.setPoints(u.getX());
 		}
+	}
+	
+	public int getMeanX(){
+		return meanX;
 	}
 
 }

@@ -2,10 +2,12 @@ package Core;
 
 public class Ball implements Comparable<Ball> {
 	
-	private int x=10, y=100;
+	private int x=200, y=200;
 	private int points=0;
 	
-	private int[][] dna = new int[100][2];
+	private int[][] dna = new int[1000][2];
+	
+	public static int c0=0, c1=0, c2=0, c3=0;
 	
 	public Ball(){
 		for(int i=0; i< dna.length; i++){
@@ -13,6 +15,12 @@ public class Ball implements Comparable<Ball> {
 			int meters = (int)(Math.random()*10);
 			dna[i][0]=dir;
 			dna[i][1]=meters;
+			switch(dir){
+			case 0: c0++; break;
+			case 1: c1++; break;
+			case 2: c2++; break;
+			case 3: c3++; break;
+			}
 		}
 	}
 	
@@ -25,6 +33,10 @@ public class Ball implements Comparable<Ball> {
 				dna[i]=dnaP[i];
 		}
 		
+	}
+	
+	public Ball(int[][] dna){
+		this.dna=dna;
 	}
 	
 	public void update(int lifeCycle){
