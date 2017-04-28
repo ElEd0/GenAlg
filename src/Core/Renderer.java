@@ -13,7 +13,10 @@ public class Renderer {
 	
 	private Graphics g;
 	
-	public Renderer() {
+	private Generation currGen;
+	
+	public Renderer(Generation curr) {
+		this.currGen=curr;
 
 		frame = new JFrame("Gen_Alg");
 		canvas = new JPanel();
@@ -29,8 +32,12 @@ public class Renderer {
 	
 	public void render(){
 		canvas.setBackground(Color.GRAY);
+		g.setColor(Color.GRAY);
+		g.fillRect(0, 0, 640, 480);
 		g.setColor(Color.RED);
-		g.fillOval(100, 100, 100, 100);
+		for(Ball b : currGen.getUnits()){
+			g.fillOval(b.getX(), b.getY(), 5, 5);
+		}
 		
 	}
 
